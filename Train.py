@@ -26,7 +26,7 @@ default_train_command = [
 
     # Data
     "--dataset", "JIF",
-    "--root", "/root/autodl-tmp/worldstrat_refactoring/dataset_entire",
+    "--root", "./dataset_example",
     "--input_size", "160", "160",
     "--output_size", "500", "500",
     "--chip_size", "50", "50",

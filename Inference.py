@@ -27,7 +27,7 @@ default_train_command = [
 
     # Data
     "--dataset", "JIF",
-    "--root", "/root/shared-nvme/worldstrat0420/dataset_entire",
+    "--root", "./dataset_example",
     "--revisits", "8",
     "--input_size", "160", "160", 
     "--output_size", "500", "500",
@@ -54,7 +54,7 @@ if __name__ == '__main__':
     add_gpu_augmentations(args)
     torch.serialization.add_safe_globals([Compose])
     model = LitModel.load_from_checkpoint(
-        checkpoint_path="/root/shared-nvme/worldstrat423/checkpoints/38ryncsh-checkpoint.ckpt",
+        checkpoint_path="/checkpoints/1145141919810.ckpt",
         backbone = args.backbone,
         weights_only=False
     )
