@@ -25,10 +25,19 @@ SatFusion/
     │   ├── srcnn.py
     │   └── trnet.py
     └── sharp/
-        ├── mamba/...
-        ├── pannet/...
-        ├── pnn/...
-        └── psit/...
+        ├── mamba/
+        |   ├── mamba_module.py
+        |   ├── panmamba_baseline_finalversion.py
+        |   └── refine_mamba.py      
+        ├── pannet/
+        |   └── pannet.py
+        ├── pnn/
+        |   ├── DoubleConv2d.py
+        |   └── pnn.py
+        └── psit/
+            ├── GPPNN_PSIT.py
+            ├── modules_psit.py
+            └── refine_psit.py
 ```
 The files in forders *src/misr* and *src/sharp* are sub-modules of MISR and Pan-Sharpenning respectively.The file *src/modules.py* is our backbone code.Follow the guidance below for better use of SatFusion.
 ### Enviroments
