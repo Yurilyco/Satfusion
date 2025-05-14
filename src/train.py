@@ -138,7 +138,7 @@ def add_callbacks(args, dataloaders):
         test set.
     """
     vars(args)["logger"] = WandbLogger(
-        project="esasuperres", entity="yufeitong20-dut", config=args
+        project="your_project_name", entity="your_entity_name", config=args
     )
 
 
@@ -269,13 +269,9 @@ def initialise_wandb(args):
     args : argparse.Namespace
         Arguments parsed from the CLI and model and project specific arguments.
     """
-    # tags = [] if not args.upload_checkpoint else ["inference"]
-    # wandb.init(project="yurily_25_4_21", tags=tags)
-    #
-    # wandb.run.log_code("./src/")
 
     tags = [] if not args.upload_checkpoint else ["inference"]
-    wandb.init(project="nips", tags=tags,entity="yufeitong20-dut")
+    wandb.init(project="your_project_name", tags=tags,entity="your_entity_name")
 
     wandb.run.log_code("./src/")
 

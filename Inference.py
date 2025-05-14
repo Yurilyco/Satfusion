@@ -13,7 +13,7 @@ default_train_command = [
     "--data_split_seed", "386564310",
 
     "--model", "ourframework",
-    "--ourMISRmodel", "None",
+    "--ourMISRmodel", "TRNet",
     "--ourSharpeningmodel", "PSIT",
     "--w_mse", "0.3",
     "--w_mae", "0.4",
@@ -34,13 +34,9 @@ default_train_command = [
     "--chip_size", "50", "50",
     "--lr_bands_to_use", "true_color",
     # Training, validation, test splits
-    "--list_of_aois", "./pretrained_model/split1.csv",
-    #--use_artificial_dataset
-    "--use_artificial_dataset",
-    "--temporal_jitter","0.1",
-    "--temporal_noise","0.3"
-
+    "--list_of_aois", "./pretrained_model/example.csv",
 ]
+# the parameters are consistent with the checkpoint 5riz8jdz.
 if __name__ == '__main__':
     sys.argv = default_train_command
     sys.argv += ["--num_workers", "16"]
@@ -54,7 +50,7 @@ if __name__ == '__main__':
     add_gpu_augmentations(args)
     torch.serialization.add_safe_globals([Compose])
     model = LitModel.load_from_checkpoint(
-        checkpoint_path="/checkpoints/1145141919810.ckpt",
+        checkpoint_path="/checkpoints/5riz8jdz-checkpoint.ckpt",# TRNet + INNformer 
         backbone = args.backbone,
         weights_only=False
     )

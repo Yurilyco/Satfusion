@@ -25,10 +25,10 @@ SatFusion/
     │   ├── srcnn.py
     │   └── trnet.py
     └── sharp/
-        ├── mamba/
-        ├── pannet/
-        ├── psit/
-        └── sfdi/
+        ├── mamba/...
+        ├── pannet/...
+        ├── pnn/...
+        └── psit/...
 ```
 The files in forders *src/misr* and *src/sharp* are sub-modules of MISR and Pan-Sharpenning respectively.The file *src/modules.py* is our backbone code.Follow the guidance below for better use of SatFusion.
 ### Enviroments
@@ -44,9 +44,9 @@ To run the block of Pan-Mamba , Vision-Mamba is required.You can refer to the gu
 The dataset we used is Worldstrat.Fetch the entire dataset on [https://worldstrat.github.io/](https://worldstrat.github.io/).Here,we provide an example dataset to test the project as *dataset_example*.The files in *pretrained_model* lists the pictures involving our framework for different conditions.
 ### Train
 Set the params *root* as your root dir of the dataset and *list_of_aios* as "pretrained_model/final_split.csv" in file *Train.py*.Run *Train.py* to train the model;    
-The process of training is visible on [Weights & Biases](wandb.ai).For details, refer to [Weights & Biases quickstart guide](https://wandb.ai/quickstart?).
+The process of training is visible on [Weights & Biases](wandb.ai).Replace the *project* and *entity* in *src/train.py*.For details, refer to [Weights & Biases quickstart guide](https://wandb.ai/quickstart?).
 ### Inference
-Set *list_of_aios* as "pretrained_model/predict_split.csv" or replace it with the aios you want.Load the results of training from folder *checkpoints* and set *checkpoint_path* in *Inference.py* as its path.Ensure all other parameters remain consistent with the training configuration.
+Set *list_of_aios* as "pretrained_model/predict_split.csv" or replace it with the aios you want.Load the results of training from folder *checkpoints* and set *checkpoint_path* in *Inference.py* as its path.Ensure all other parameters remain consistent with the training configuration.We provide a trained checkpoint of TRNet with INNformer for you to test.
 ## Issues and Contributions
 If you encounter any issues or have suggestions for improvement, please feel free to open an issue in the GitHub issue tracker.   
   

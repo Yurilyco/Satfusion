@@ -1,6 +1,5 @@
 from typing_extensions import Self
 from src.sharp.psit.GPPNN_PSIT import GPPNN as GPPNN_PSIT
-from src.sharp.sfdi.GPPNN_SFDI import GPPNN as GPPNN_SFDI
 from src.sharp.pnn.DoubleConv2d import DoubleConv2d_PNN
 from src.sharp.pnn.pnn import PCNN
 from src.sharp.pannet.pannet import PANNet_With_MISR, PANNet_Only_Sharpening
