@@ -46,7 +46,7 @@ default_train_command = [
     # do not set below params both None
     "--ourMISRmodel","TRNet", # other choice: None,HighResNet,RAMS,TRNet
     "--ourSharpeningmodel","Pan_Mamba",# other choice: PANNet,PSIT,Pan_Mamba
-    
+    # INNformer is PSIT here
 ]
 
 def run_training_command(training_command):
