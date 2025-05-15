@@ -5,19 +5,6 @@ import math
 import torch.nn.functional as F
 from kornia.geometry.transform import Resize
 
-class HighFrequencyExtractor(nn.Module):
-    def __init__(self, kernel_size=15):
-        super().__init__()
-        self.kernel_size = kernel_size
-        # Use mean filtering as a low-pass filter
-        self.blur = nn.AvgPool2d(kernel_size=kernel_size, stride=1, padding=kernel_size//2)
-
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        x_blur = self.blur(x)
-        hf = x - x_blur  
-        return hf
-
-
 class ResidualBlock(nn.Module):
     """ResNet Residual Block with Two Convolutional Layers and Skip Connectionn"""
     def __init__(self, in_channels, out_channels, kernel_size=3, stride=1):
@@ -51,10 +38,7 @@ class PANNet_With_MISR(nn.Module):
     def __init__(self, in_channels=4, n1=64, n2=32, f1=9, f2=5, f3=5):
         super().__init__()
 
-        # ​​High-Frequency Extractor​​
-        self.hf_extractor = HighFrequencyExtractor(kernel_size=15)
-
-        # Initial Convolution Block (architecturally aligned with the baseline PCNN)​
+        # Initial Convolution Block (the origin high-frequency extractor is inappropriate for small-sized images)​
         self.conv1 = nn.Conv2d(in_channels , n1, kernel_size=f1, padding=f1 // 2)
 
         # ResNet Residual Block (Replacing the Original Second Layer)​
@@ -73,8 +57,6 @@ class PANNet_With_MISR(nn.Module):
         Returns:
             Tensor: [B, C, H, W] sharpened output
         """
-        #ms_hf = self.hf_extractor(ms)  # [B, C, H, W]
-        #pan_hf = self.hf_extractor(pan)  # [B, 1, H, W]
         ms_hf = ms  # [B, C, H, W]
         pan_hf = pan  # [B, 1, H, W]
         x = torch.cat([ms_hf, pan_hf], dim=1)  # [B, C+1, H, W]
@@ -97,7 +79,6 @@ class PANNet_Only_Sharpening(nn.Module):
         self.output_size = output_size
 
 
-        self.hf_extractor = HighFrequencyExtractor(kernel_size=15)
 
         self.resize = Resize(
             self.output_size,
@@ -107,7 +88,6 @@ class PANNet_Only_Sharpening(nn.Module):
         )
 
         self.conv1 = nn.Conv2d(in_channels, n1, kernel_size=f1, padding=f1 // 2)
-
 
         self.res_block1 = ResidualBlock(n1, n1, kernel_size=f2)
         self.res_block2 = ResidualBlock(n1, n2, kernel_size=f2)
@@ -124,8 +104,6 @@ class PANNet_Only_Sharpening(nn.Module):
             Tensor: [B, C, H, W] sharpened output
         """
         ms_res = self.resize(ms)
-        #ms_hf = self.hf_extractor(ms)  # [B, C, h, w]
-        #pan_hf = self.hf_extractor(pan)  # [B, 1, H, W]
         ms_hf = ms  # [B, C, H, W]
         pan_hf = pan  # [B, 1, H, W]
         ms_hf_up = self.resize(ms_hf)
